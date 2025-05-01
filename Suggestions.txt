@@ -1,0 +1,158 @@
+First Half-Line 1-112
+No changes required
+
+Second half-Line 113-252
+Great! You've just shared the second section of your incident_template.html, which includes the full structure and static content of the IRP.
+
+✅ Here’s what I found in this half:
+✔️ Good:
+Rich, well-organized content
+
+Complete IRP structure: Executive Summary, Introduction, CSIRT Structure, Handling Phases
+
+Sections are semantically correct (<h3>, <ul>, etc.)
+
+🔍 What Needs Changing for Dynamic Mapping:
+This template currently has static explanatory content. But your FastAPI backend is returning dynamic text blocks like:
+
+{{ compliance_section }}
+
+{{ csirt_section }}
+
+{{ containment_section }}
+
+{{ threat_response_section }}
+
+So, to support dynamic mapping, you need to:
+
+✅ Insert Dynamic Placeholders Where Needed
+I suggest placing the dynamic blocks in these locations:
+
+Template Section	Replace/Add This
+After <h3>2.3 Incident Response Team Structure</h3>	Add {{ csirt_section }}
+After <h2 id="handling-an-incident">Handling an Incident</h2>	Add {{ threat_response_section }}
+After <h3>3.1 Preparation</h3> or new <h3>3.2 Containment</h3>	Add {{ containment_section }}
+In a new section after "Appendix" or Compliance	Add {{ compliance_section }}
+
+✨ How It Will Look in Template (Example):
+html
+Copy
+Edit
+<h3>2.3 Incident Response Team Structure</h3>
+<p>{{ csirt_section }}</p>  <!-- dynamically generated team model -->
+
+...
+
+<h2 id="handling-an-incident">Handling an Incident</h2>
+<p>The incident response process has several phases...</p>
+<p>{{ threat_response_section }}</p> <!-- dynamically added ransomware/phishing/DDoS logic -->
+
+...
+
+<h3>3.2 Containment (Auto-generated)</h3>
+<p>{{ containment_section }}</p>
+
+...
+
+<h3>Compliance Considerations</h3>
+<p>{{ compliance_section }}</p>
+✅ Summary of What to Do in This Section
+Task	What to Do
+✅ Insert {{ csirt_section }}	Under “2.3 Incident Response Team Structure”
+✅ Insert {{ threat_response_section }}	In “Handling an Incident”
+✅ Insert {{ containment_section }}	In Preparation or create new “Containment” section
+✅ Insert {{ compliance_section }}	In new or existing Compliance section
+
+
+Third Half-Line 253 to last
+✅ Analysis of the Final (Third) Section
+This section contains:
+
+Preventive measures
+
+Detection & analysis
+
+Incident coordination
+
+Appendices and glossary
+
+Much of this is informational/static and doesn't need dynamic content injection. But to make your template work with your FastAPI + conditional mapping engine, we’ll make a few targeted insertions for the dynamic sections you've already defined in your main.py logic.
+
+🔧 Final Integration Plan: What to Insert and Where
+🧩 1. {{ csirt_section }}
+Where to insert:
+Right after this in your HTML:
+
+html
+Copy
+Edit
+<h3>2.3 Incident Response Team Structure</h3>
+How:
+
+html
+Copy
+Edit
+<p>{{ csirt_section }}</p>
+🧩 2. {{ containment_section }}
+Where to insert:
+Create a new heading after this:
+
+html
+Copy
+Edit
+<h3>3.1.2 Preventing Incidents</h3>
+How:
+
+html
+Copy
+Edit
+<h3>3.1.3 Containment Strategy (Auto-generated)</h3>
+<p>{{ containment_section }}</p>
+🧩 3. {{ threat_response_section }}
+Where to insert:
+Just before this heading:
+
+html
+Copy
+Edit
+<h2 id="coordination-and-information-sharing">Coordination and Information Sharing</h2>
+How:
+
+html
+Copy
+Edit
+<h3>3.3 Threat-Specific Response (Auto-generated)</h3>
+<p>{{ threat_response_section }}</p>
+🧩 4. {{ compliance_section }}
+Where to insert:
+Best placed at the end of Section 1 (Introduction) just before this:
+
+html
+Copy
+Edit
+<h2 id="organizing-a-csirc">Organizing a Computer Security Incident Response Capability</h2>
+How:
+
+html
+Copy
+Edit
+<h3>1.5 Compliance Requirements</h3>
+<p>{{ compliance_section }}</p>
+✅ Summary of All Edits (Insert These Tags):
+Dynamic Key	Section Title	Where to Insert
+{{ csirt_section }}	2.3 Incident Response Team Structure	After <h3>2.3 Incident Response Team Structure</h3>
+{{ containment_section }}	3.1.3 Containment	After 3.1.2 (create new subsection)
+{{ threat_response_section }}	3.3 Threat Response	Before "Coordination and Information Sharing" section
+{{ compliance_section }}	1.5 Compliance	After Audience / End of Introduction section
+
+📝 Optional Enhancements
+Add a comment marker before each dynamic insertion, like:
+
+html
+Copy
+Edit
+<!-- DYNAMIC INSERT: Threat Response Section -->
+Helps with maintainability and future debugging.
+
+If you want to make the document fully adaptable, you could also extract things like company_name, industry, etc. and insert those in appropriate places for branding.
+
