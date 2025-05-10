@@ -119,13 +119,16 @@
         <ul>
             <li><a href="#executive-summary">Executive Summary</a></li>
             <li><a href="#introduction">Introduction</a></li>
-            <h3>1.5 Compliance Requirements</h3>
-            <p>{{ compliance_section }}</p>
             <li><a href="#organizing-a-csirc">Organizing a Computer Security Incident Response Capability</a></li>
             <li><a href="#handling-an-incident">Handling an Incident</a></li>
             <li><a href="#coordination-and-information-sharing">Coordination and Information Sharing</a></li>
             <li><a href="#appendices">List of Appendices</a></li>
         </ul>
+        
+        <!-- Moved this OUT of the TOC -->
+        <h3>1.5 Compliance Requirements (Auto-generated)</h3>
+        <p>{{ compliance_section }}</p>
+        
 
         <h2 id="executive-summary">Executive Summary</h2>
         <div class="executive-summary">
@@ -262,10 +265,13 @@
 
         <h4>3.1.2 Preventing Incidents</h4>
         <h3>3.1.3 Containment Strategy (Auto-generated)</h3>
-        <!-- ✅ INSERTED: THREAT RESPONSE SECTION -->
+        <p>{{ containment_section }}</p>
+
+        <!-- ✅ INSERTED -->
         <h3>3.3 Threat-Specific Response (Auto-generated)</h3>
         <p>{{ threat_response_section }}</p>
-        
+
+
         <p>{{ containment_section }}</p>
         <p>Keeping the number of incidents reasonably low is very important to protect the business processes of the organization. If security controls are insufficient, higher volumes of incidents may occur, overwhelming the incident response team.</p>
         <p>Some of the main recommended practices for securing networks, systems, and applications:</p>
@@ -320,6 +326,7 @@
 
         <h3>3.3 Threat-Specific Response (Auto-generated)</h3>
         <p>{{ threat_response_section }}</p>
+
 
         <h2 id="coordination-and-information-sharing">Coordination and Information Sharing</h2>
         <h3>Coordination</h3>
