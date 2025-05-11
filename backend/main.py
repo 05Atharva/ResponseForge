@@ -32,7 +32,7 @@ def generate_dynamic_sections(user_input):
     }
 
     # Compliance logic
-    compliance = user_input.get("compliance", [])
+    compliance = user_input.get("compliance_standards", [])
     if "HIPAA" in compliance:
         dynamic["compliance_section"] = (
             "This organization must report data breaches to health authorities "
@@ -81,7 +81,7 @@ def generate_dynamic_sections(user_input):
         )
 
     # Threat-specific response
-    threats = user_input.get("past_incidents", [])
+    threats = user_input.get("top_threats", [])
     if "Ransomware" in threats:
         dynamic["threat_response_section"] = (
             "Ransomware-specific response includes disconnecting infected systems, "
@@ -108,8 +108,23 @@ async def generate_report(request: Request):
     # 1. Apply conditional mapping logic
     dynamic_sections = generate_dynamic_sections(user_input)
 
-    # 2. Merge dynamic + static input
-    final_data = {**user_input, **dynamic_sections}
+    # 2. Merge dynamic + static input (direct mappings already expected to be passed)
+    final_data = {
+        **user_input,
+        **dynamic_sections,
+        "company_name": user_input.get("company_name", "N/A"),
+        "industry_sector": user_input.get("industry_sector", "N/A"),
+        "number_of_endpoints": user_input.get("number_of_endpoints", "N/A"),
+        "infrastructure_type": user_input.get("infrastructure_type", "N/A"),
+        "edr_siem_used": user_input.get("edr_siem_used", "N/A"),
+        "incident_commander": user_input.get("incident_commander", "N/A"),
+        "audience_roles": user_input.get("audience_roles", "N/A"),
+        "critical_systems": user_input.get("critical_systems", "N/A"),
+        "backup_system": user_input.get("backup_system", "N/A"),
+        "detection_tools": user_input.get("detection_tools", "N/A"),
+        "disclosure_time": user_input.get("disclosure_time", "N/A"),
+        "response_playbooks": user_input.get("response_playbooks", "N/A")
+    }
 
     # 3. Render Jinja2 HTML
     template = env.get_template("incident_template.html")
