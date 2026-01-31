@@ -6,37 +6,23 @@
 
 import PropTypes from 'prop-types';
 
-function OutputPreferences({ formData, onChange, formatOptions }) {
+function OutputPreferences({ formData, onChange }) {
     return (
         <div className="form-fields">
-            {/* Q16: Output Format */}
+            {/* Hidden input to maintain PDF format */}
+            <input type="hidden" value="pdf" />
+
+            {/* PDF Format Display */}
             <div className="form-group">
-                <label htmlFor="outputFormat">
-                    Which format would you like the Incident Response document in?
-                    <span className="required">*</span>
-                </label>
+                <label>Output Format</label>
                 <div className="format-options">
-                    {formatOptions.map((format) => (
-                        <label key={format.value} className={`format-card ${formData.outputFormat === format.value ? 'selected' : ''}`}>
-                            <input
-                                type="radio"
-                                name="outputFormat"
-                                value={format.value}
-                                checked={formData.outputFormat === format.value}
-                                onChange={(e) => onChange('outputFormat', e.target.value)}
-                            />
-                            <span className="format-icon">
-                                {format.value === 'md' ? '📝' : '📄'}
-                            </span>
-                            <span className="format-label">{format.label}</span>
-                            <span className="format-description">
-                                {format.value === 'md'
-                                    ? 'Rich formatting with headers, tables, and lists'
-                                    : 'Plain text format for maximum compatibility'
-                                }
-                            </span>
-                        </label>
-                    ))}
+                    <label className="format-card selected">
+                        <span className="format-icon">📄</span>
+                        <span className="format-label">PDF Document</span>
+                        <span className="format-description">
+                            Professional PDF with headers, footers, and formatted tables
+                        </span>
+                    </label>
                 </div>
             </div>
 
@@ -45,8 +31,8 @@ function OutputPreferences({ formData, onChange, formatOptions }) {
                 <h3>📋 Ready to Generate</h3>
                 <p>
                     Click "Generate Document" below to create your customized NIST SP 800-61
-                    compliant Incident Response Plan. You'll be able to preview and download
-                    the document on the next screen.
+                    compliant Incident Response Plan. Your professional PDF document will
+                    include a title page, table of contents, and all your organization-specific details.
                 </p>
             </div>
         </div>
@@ -56,7 +42,7 @@ function OutputPreferences({ formData, onChange, formatOptions }) {
 OutputPreferences.propTypes = {
     formData: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
-    formatOptions: PropTypes.array.isRequired,
 };
 
 export default OutputPreferences;
+

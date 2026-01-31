@@ -101,7 +101,7 @@ def generate_filename(organization_name: str, output_format: str) -> str:
     
     Args:
         organization_name: Name of the organization
-        output_format: Output format ('md' or 'txt')
+        output_format: Output format ('md', 'txt', or 'pdf')
         
     Returns:
         Generated filename string
@@ -115,7 +115,12 @@ def generate_filename(organization_name: str, output_format: str) -> str:
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     
     # Determine extension
-    extension = 'md' if output_format == 'md' else 'txt'
+    if output_format == 'pdf':
+        extension = 'pdf'
+    elif output_format == 'md':
+        extension = 'md'
+    else:
+        extension = 'txt'
     
     return f'IR_Plan_{safe_name}_{timestamp}.{extension}'
 

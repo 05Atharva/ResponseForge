@@ -26,7 +26,7 @@ MAX_MULTILINE_LENGTH = 2000
 VALID_INFRASTRUCTURE_OPTIONS = ['AWS', 'Azure', 'GCP', 'On-Premises']
 VALID_SEVERITY_LEVELS = ['Low', 'Medium', 'High', 'Critical']
 VALID_COMMUNICATION_CHANNELS = ['Email', 'Phone', 'Slack', 'Microsoft Teams', 'Other']
-VALID_OUTPUT_FORMATS = ['md', 'txt']
+VALID_OUTPUT_FORMATS = ['pdf']
 
 
 # =============================================================================

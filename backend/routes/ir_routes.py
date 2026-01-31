@@ -4,6 +4,7 @@ Incident Response Routes
 API endpoints for generating NIST SP 800-61 compliant IR templates.
 """
 
+import base64
 from flask import Blueprint, request, jsonify
 from validators.input_validator import validate_questionnaire
 from utils.template_renderer import (
@@ -11,6 +12,7 @@ from utils.template_renderer import (
     generate_filename, 
     convert_to_text
 )
+from utils.pdf_generator import generate_pdf_from_data
 
 
 # =============================================================================
@@ -95,19 +97,37 @@ def generate_ir_template():
     # -------------------------------------------------------------------------
     
     try:
-        # Render the IR document
-        document = render_ir_template(validated_data)
-        
-        # Convert to text if requested
+        # Get output format
         output_format = validated_data.get('outputFormat', 'md')
-        if output_format == 'txt':
-            document = convert_to_text(document)
         
         # Generate filename
         filename = generate_filename(
             validated_data.get('organizationName', 'Organization'),
             output_format
         )
+        
+        # Handle PDF generation separately
+        if output_format == 'pdf':
+            # Generate PDF using WeasyPrint
+            pdf_bytes = generate_pdf_from_data(validated_data)
+            
+            # Convert to base64 for JSON transmission
+            pdf_base64 = base64.b64encode(pdf_bytes).decode('utf-8')
+            
+            return jsonify({
+                'success': True,
+                'document': pdf_base64,
+                'filename': filename,
+                'isPdf': True
+            }), 200
+        
+        # Handle Markdown and Text formats
+        # Render the IR document
+        document = render_ir_template(validated_data)
+        
+        # Convert to text if requested
+        if output_format == 'txt':
+            document = convert_to_text(document)
         
     except Exception as e:
         # Log the error (in production, use proper logging)
@@ -148,7 +168,7 @@ def get_template_options():
         'severityLevels': ['Low', 'Medium', 'High', 'Critical'],
         'communicationChannels': ['Email', 'Phone', 'Slack', 'Microsoft Teams', 'Other'],
         'outputFormats': [
-            {'value': 'md', 'label': 'Markdown (.md)'},
-            {'value': 'txt', 'label': 'Text (.txt)'}
+            {'value': 'pdf', 'label': 'PDF (.pdf)'}
         ]
     }), 200
+

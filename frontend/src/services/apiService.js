@@ -74,11 +74,26 @@ export const getTemplateOptions = async () => {
 /**
  * Download a document as a file.
  * 
- * @param {string} content - Document content
+ * @param {string} content - Document content (text or base64 for PDF)
  * @param {string} filename - Filename for download
+ * @param {boolean} isPdf - Whether the content is a base64-encoded PDF
  */
-export const downloadDocument = (content, filename) => {
-    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+export const downloadDocument = (content, filename, isPdf = false) => {
+    let blob;
+    
+    if (isPdf) {
+        // Decode base64 PDF data
+        const binaryString = window.atob(content);
+        const bytes = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+        }
+        blob = new Blob([bytes], { type: 'application/pdf' });
+    } else {
+        // Plain text content
+        blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    }
+    
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;

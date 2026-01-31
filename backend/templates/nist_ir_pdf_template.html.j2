@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ organizationName }} - Incident Response Plan</title>
+    <link rel="stylesheet" href="pdf_styles.css">
+</head>
+<body>
+    <!-- Title Page -->
+    <div class="title-page org-name" data-org="{{ organizationName }}">
+        <h1 class="title-page">{{ organizationName }}<br>Incident Response Plan</h1>
+        <p class="subtitle">Computer Security Incident Handling Guide</p>
+        <p class="subtitle" style="font-size: 12pt; margin-top: 20pt;">
+            Inspired by the recommendations of the<br>
+            National Institute of Standards and Technology<br>
+            (NIST SP 800-61)
+        </p>
+        
+        <div class="document-info">
+            <table style="border: none; margin-top: 50pt;">
+                <tr style="background: none;">
+                    <td style="border: none; font-weight: bold; width: 150pt;">Organization:</td>
+                    <td style="border: none;">{{ organizationName }}</td>
+                </tr>
+                <tr style="background: none;">
+                    <td style="border: none; font-weight: bold;">Industry:</td>
+                    <td style="border: none;">{{ industry }}</td>
+                </tr>
+                <tr style="background: none;">
+                    <td style="border: none; font-weight: bold;">Generated Date:</td>
+                    <td style="border: none;">{{ generated_date }}</td>
+                </tr>
+                <tr style="background: none;">
+                    <td style="border: none; font-weight: bold;">Version:</td>
+                    <td style="border: none;">{{ document_version }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="toc-page page-break">
+        <h2 style="border-bottom: 2pt solid #2c3e50; padding-bottom: 8pt;">Table of Contents</h2>
+        
+        <table class="toc-table">
+            <tbody>
+                <!-- Main Sections -->
+                <tr>
+                    <td class="toc-number">1.</td>
+                    <td class="toc-dots">Introduction</td>
+                </tr>
+                <tr>
+                    <td class="toc-number"></td>
+                    <td class="toc-dots toc-subsection">1.1 Context</td>
+                </tr>
+                <tr>
+                    <td class="toc-number"></td>
+                    <td class="toc-dots toc-subsection">1.2 Purpose and Scope</td>
+                </tr>
+                <tr>
+                    <td class="toc-number"></td>
+                    <td class="toc-dots toc-subsection">1.3 Audience</td>
+                </tr>
+                <tr>
+                    <td class="toc-number"></td>
+                    <td class="toc-dots toc-subsection">1.4 Infrastructure Environment</td>
+                </tr>
+                
+                <tr>
+                    <td class="toc-number">2.</td>
+                    <td class="toc-dots">Organizing a Computer Security Incident Response Capability</td>
+                </tr>
+                <tr>
+                    <td class="toc-number"></td>
+                    <td class="toc-dots toc-subsection">2.1 What is a Computer Security Incident?</td>
+                </tr>
+                <tr>
+                    <td class="toc-number"></td>
+                    <td class="toc-dots toc-subsection">2.2 Need for Incident Response</td>
+                </tr>
+                <tr>
+                    <td class="toc-number"></td>
+                    <td class="toc-dots toc-subsection">2.3 Incident Response Team Structure</td>
+                </tr>
+                <tr>
+                    <td class="toc-number"></td>
+                    <td class="toc-dots toc-subsection">2.4 Incident Response Team Services</td>
+                </tr>
+                
+                <tr>
+                    <td class="toc-number">3.</td>
+                    <td class="toc-dots">Handling an Incident</td>
+                </tr>
+                <tr>
+                    <td class="toc-number"></td>
+                    <td class="toc-dots toc-subsection">3.1 Preparation</td>
+                </tr>
+                <tr>
+                    <td class="toc-number"></td>
+                    <td class="toc-dots toc-subsection">3.2 Detection and Analysis</td>
+                </tr>
+                <tr>
+                    <td class="toc-number"></td>
+                    <td class="toc-dots toc-subsection">3.3 Containment, Eradication, and Recovery</td>
+                </tr>
+                <tr>
+                    <td class="toc-number"></td>
+                    <td class="toc-dots toc-subsection">3.4 Post-Incident Activity</td>
+                </tr>
+                
+                <tr>
+                    <td class="toc-number">4.</td>
+                    <td class="toc-dots">Coordination and Information Sharing</td>
+                </tr>
+                
+                <!-- Appendices Section -->
+                <tr>
+                    <td colspan="2" class="toc-appendix-header">Appendices</td>
+                </tr>
+                <tr>
+                    <td class="toc-number">A.</td>
+                    <td class="toc-dots">Situation Update Template</td>
+                </tr>
+                <tr>
+                    <td class="toc-number">B.</td>
+                    <td class="toc-dots">Resolution Action Plan Template</td>
+                </tr>
+                <tr>
+                    <td class="toc-number">C.</td>
+                    <td class="toc-dots">Evidence Register Template</td>
+                </tr>
+                <tr>
+                    <td class="toc-number">D.</td>
+                    <td class="toc-dots">Assets and Key Contacts</td>
+                </tr>
+                <tr>
+                    <td class="toc-number">E.</td>
+                    <td class="toc-dots">Glossary</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content page-break">
+        
+        <!-- Section 1: Introduction -->
+        <h2 id="introduction">1. Introduction</h2>
+
+        <h3>1.1 Context</h3>
+        <p>
+            Cyber security relates to the confidentiality, availability and integrity of information and data that is 
+            processed, stored and communicated by electronic or similar means, and protecting it and associated systems 
+            from external or internal threat.
+        </p>
+        <p>
+            It is commonly recognized that cyber security involves the protection of critical information and ICT 
+            infrastructure, including supervisory control and data acquisition (SCADA) systems and industrial control 
+            systems (ICS), through the alignment of people, processes and tools.
+        </p>
+        <p>
+            This document supports <strong>{{ organizationName }}</strong> in managing contemporary cyber threats and 
+            incidents. The application of this document will support the organization in reducing the scope, impact and 
+            severity of cyber incidents.
+        </p>
+
+        <h3>1.2 Purpose and Scope</h3>
+        <p>
+            This publication seeks to assist {{ organizationName }} in mitigating the risks from computer security 
+            incidents by providing practical guidelines on responding to incidents effectively and efficiently. It 
+            includes guidelines on establishing an effective incident response program, with the primary focus on 
+            detecting, analyzing, prioritizing, and handling incidents.
+        </p>
+
+        <h3>1.3 Audience</h3>
+        <p>This document has been created for:</p>
+        <ul>
+            <li>Computer Security Incident Response Teams (CSIRTs)</li>
+            <li>System and Network Administrators</li>
+            <li>Security Staff</li>
+            <li>Technical Support Staff</li>
+            <li>Chief Information Security Officers (CISOs)</li>
+            <li>Chief Information Officers (CIOs)</li>
+            <li>Computer Security Program Managers</li>
+        </ul>
+
+        <h3>1.4 Infrastructure Environment</h3>
+        <p><strong>Primary Infrastructure:</strong> {{ infrastructureEnvironment }}</p>
+        <p>
+            {% if infrastructureEnvironment == 'AWS' %}
+            The organization primarily operates on Amazon Web Services (AWS) cloud infrastructure. Incident response 
+            procedures should account for AWS-specific services, logging (CloudTrail, CloudWatch), and remediation tools.
+            {% elif infrastructureEnvironment == 'Azure' %}
+            The organization primarily operates on Microsoft Azure cloud infrastructure. Incident response procedures 
+            should account for Azure-specific services, logging (Azure Monitor, Azure Sentinel), and remediation tools.
+            {% elif infrastructureEnvironment == 'GCP' %}
+            The organization primarily operates on Google Cloud Platform (GCP) infrastructure. Incident response 
+            procedures should account for GCP-specific services, logging (Cloud Logging, Security Command Center), 
+            and remediation tools.
+            {% elif infrastructureEnvironment == 'On-Premises' %}
+            The organization primarily operates on-premises infrastructure. Incident response procedures should account 
+            for physical security, local logging infrastructure, and on-site remediation capabilities.
+            {% endif %}
+        </p>
+
+        <!-- Section 2: Organizing CSIRC -->
+        <h2 id="organizing" class="page-break">2. Organizing a Computer Security Incident Response Capability</h2>
+
+        <h3>2.1 What is a Computer Security Incident?</h3>
+        <p>
+            A computer security incident is a violation or imminent threat of violation of computer security policies, 
+            acceptable use policies, or standard security practices. Examples of incidents include:
+        </p>
+        <ul>
+            <li>An attacker commands a botnet to send high volumes of connection requests to a web server, causing it to crash</li>
+            <li>Users are tricked into opening malware disguised as a "quarterly report" sent via email</li>
+            <li>An attacker obtains sensitive data and threatens to release it publicly unless a ransom is paid</li>
+            <li>A user provides or exposes sensitive information through peer-to-peer file sharing services</li>
+            <li>Unauthorized access to systems or data</li>
+            <li>Denial of Service (DoS) attacks</li>
+            <li>Malware infections</li>
+        </ul>
+
+        <h3>2.2 Need for Incident Response</h3>
+        <p>
+            Attacks frequently compromise personal and business data, and it is critical to respond quickly and 
+            effectively when security breaches occur. Benefits of having an incident response capability include:
+        </p>
+        <ul>
+            <li>Systematic response following a consistent incident handling methodology</li>
+            <li>Minimized loss or theft of information</li>
+            <li>Reduced disruption of services</li>
+            <li>Maintained stakeholder confidence</li>
+            <li>Compliance with regulatory requirements</li>
+        </ul>
+
+        <h3>2.3 Incident Response Team Structure</h3>
+
+        <h4>2.3.1 Team Leadership</h4>
+        <p><strong>Incident Commander:</strong> {{ incidentCommander }}</p>
+        <p>The Incident Commander is responsible for:</p>
+        <ul>
+            <li>Overall coordination of incident response activities</li>
+            <li>Making critical decisions during incidents</li>
+            <li>Communicating with executive leadership</li>
+            <li>Ensuring proper resource allocation</li>
+        </ul>
+
+        <h4>2.3.2 SOC Analysts</h4>
+        <p>The following personnel are responsible for security monitoring and initial incident analysis:</p>
+        <p style="white-space: pre-line;">{{ socAnalysts }}</p>
+
+        <h4>2.3.3 Infrastructure &amp; Cloud Remediation</h4>
+        <p><strong>Remediation Owner:</strong> {{ cloudRemediationOwner }}</p>
+        <p>Responsible for:</p>
+        <ul>
+            <li>Implementing containment measures</li>
+            <li>Executing eradication procedures</li>
+            <li>Coordinating system recovery</li>
+            <li>Infrastructure-level security changes</li>
+        </ul>
+
+        <h4>2.3.4 Legal &amp; Compliance Coordination</h4>
+        <p><strong>Legal/Compliance Owner:</strong> {{ legalComplianceOwner }}</p>
+        <p>Responsible for:</p>
+        <ul>
+            <li>Regulatory notification requirements</li>
+            <li>Legal implications assessment</li>
+            <li>Evidence preservation for potential litigation</li>
+            <li>Compliance documentation</li>
+        </ul>
+
+        <h3>2.4 Incident Response Team Services</h3>
+        <p>The incident response team provides the following services:</p>
+        <ul>
+            <li><strong>Intrusion Detection:</strong> Monitoring for and analyzing potential security incidents</li>
+            <li><strong>Advisory Distribution:</strong> Disseminating information about new vulnerabilities and threats</li>
+            <li><strong>Education and Awareness:</strong> Training users on security best practices</li>
+            <li><strong>Information Sharing:</strong> Participating in threat intelligence sharing groups</li>
+        </ul>
+
+        <!-- Section 3: Handling an Incident -->
+        <h2 id="handling" class="page-break">3. Handling an Incident</h2>
+        <p>
+            The incident response process consists of several phases: <strong>Preparation</strong>, 
+            <strong>Detection and Analysis</strong>, <strong>Containment, Eradication, and Recovery</strong>, 
+            and <strong>Post-Incident Activity</strong>.
+        </p>
+
+        <h3>3.1 Preparation</h3>
+        <p>
+            Preparation involves establishing an incident response capability and preventing incidents through proper 
+            security controls.
+        </p>
+
+        <h4>3.1.1 Incident Handler Communications and Facilities</h4>
+        <ul>
+            <li>Contact information for team members and external parties</li>
+            <li>On-call information and escalation procedures</li>
+            <li>Incident reporting mechanisms (phone, email, online forms)</li>
+            <li>Issue tracking system for incident management</li>
+            <li>Secure communication channels (encrypted messaging)</li>
+            <li>War room or virtual collaboration space</li>
+            <li>Secure evidence storage facility</li>
+        </ul>
+
+        <h4>3.1.2 Incident Analysis Hardware and Software</h4>
+        <ul>
+            <li>Digital forensic workstations and backup devices</li>
+            <li>Laptops for data analysis and report writing</li>
+            <li>Spare workstations, servers, and networking equipment</li>
+            <li>Packet sniffers and protocol analyzers</li>
+            <li>Digital forensic software</li>
+            <li>Evidence gathering accessories</li>
+        </ul>
+
+        <h4>3.1.3 Preventing Incidents</h4>
+        <ul>
+            <li><strong>Risk Assessments:</strong> Periodic assessment of threats and vulnerabilities</li>
+            <li><strong>Host Security:</strong> System hardening using standard configurations</li>
+            <li><strong>Network Security:</strong> Perimeter configured to deny unauthorized activity</li>
+            <li><strong>Malware Prevention:</strong> Anti-malware deployed at host and network levels</li>
+            <li><strong>User Awareness and Training:</strong> Regular security awareness training</li>
+        </ul>
+
+        <h3>3.2 Detection and Analysis</h3>
+
+        <h4>3.2.1 Attack Vectors</h4>
+        <p>Common attack vectors include:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Attack Vector</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>External/Removable Media</td>
+                    <td>Attacks from USB drives or peripheral devices</td>
+                </tr>
+                <tr>
+                    <td>Attrition</td>
+                    <td>Brute force attacks, DDoS</td>
+                </tr>
+                <tr>
+                    <td>Web</td>
+                    <td>Attacks via websites or web applications</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>Phishing, malicious attachments</td>
+                </tr>
+                <tr>
+                    <td>Impersonation</td>
+                    <td>Spoofing, man-in-the-middle attacks</td>
+                </tr>
+                <tr>
+                    <td>Improper Usage</td>
+                    <td>Policy violations by authorized users</td>
+                </tr>
+                <tr>
+                    <td>Loss/Theft</td>
+                    <td>Lost or stolen devices or media</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>3.2.2 Signs of an Incident</h4>
+        <p>Indicators that may suggest an incident:</p>
+        <ul>
+            <li>Network intrusion detection alerts</li>
+            <li>Antivirus alerts</li>
+            <li>Unusual filenames or system changes</li>
+            <li>Unauthorized configuration changes</li>
+            <li>Multiple failed login attempts</li>
+            <li>Suspicious email activity</li>
+            <li>Unusual network traffic patterns</li>
+        </ul>
+
+        <h4>3.2.3 Incident Analysis Recommendations</h4>
+        <ul>
+            <li>Profile networks and systems to identify deviations</li>
+            <li>Understand normal behavior patterns</li>
+            <li>Create and follow a log retention policy</li>
+            <li>Perform event correlation across multiple sources</li>
+            <li>Keep all host clocks synchronized (NTP)</li>
+            <li>Maintain a knowledge base of information</li>
+            <li>Use search engines for research</li>
+            <li>Run packet sniffers when additional data is needed</li>
+        </ul>
+
+        <h4>3.2.4 Incident Prioritization</h4>
+        <p>{{ organizationName }} uses the following incident severity levels:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Priority</th>
+                    <th>Level</th>
+                    <th>Description</th>
+                    <th>Response Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for level in severityLevels %}
+                {% if level == 'Critical' %}
+                <tr>
+                    <td>P1</td>
+                    <td><strong>Critical</strong></td>
+                    <td>Severe business impact, critical systems affected</td>
+                    <td>Immediate (15-30 min)</td>
+                </tr>
+                {% elif level == 'High' %}
+                <tr>
+                    <td>P2</td>
+                    <td><strong>High</strong></td>
+                    <td>Significant business impact, multiple systems</td>
+                    <td>Within 1-2 hours</td>
+                </tr>
+                {% elif level == 'Medium' %}
+                <tr>
+                    <td>P3</td>
+                    <td><strong>Medium</strong></td>
+                    <td>Moderate impact, individual systems</td>
+                    <td>Within 8 hours</td>
+                </tr>
+                {% elif level == 'Low' %}
+                <tr>
+                    <td>P4</td>
+                    <td><strong>Low</strong></td>
+                    <td>Minimal impact, routine events</td>
+                    <td>Within 24-48 hours</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p><strong>Severity Determination Criteria:</strong></p>
+        <p style="white-space: pre-line;">{{ severityDetermination }}</p>
+
+        <h4>3.2.5 Incident Notification</h4>
+        <p><strong>Escalation Matrix:</strong></p>
+        <p style="white-space: pre-line;">{{ escalationMatrix }}</p>
+
+        <p><strong>Communication Channels:</strong></p>
+        <p>The following channels are used during incident response:</p>
+        <ul>
+            {% for channel in communicationChannels %}
+            <li>{{ channel }}</li>
+            {% endfor %}
+        </ul>
+
+        <p><strong>Critical Incident Notification List:</strong></p>
+        <p style="white-space: pre-line;">{{ criticalIncidentNotifications }}</p>
+
+        <h3>3.3 Containment, Eradication, and Recovery</h3>
+
+        <h4>3.3.1 Choosing a Containment Strategy</h4>
+        <p>
+            Containment is critical before an incident overwhelms resources or increases damage. Criteria for selecting 
+            a containment strategy:
+        </p>
+        <ul>
+            <li>Potential damage to and theft of resources</li>
+            <li>Need for evidence preservation</li>
+            <li>Service availability requirements</li>
+            <li>Time and resources needed to implement</li>
+            <li>Effectiveness of the strategy</li>
+            <li>Duration of the solution</li>
+        </ul>
+
+        <h4>3.3.2 Evidence Gathering and Handling</h4>
+        {% if maintainsForensicEvidence %}
+        <p>{{ organizationName }} maintains forensic evidence during security incidents.</p>
+        <p><strong>Evidence Storage Location:</strong> {{ forensicEvidenceLocation }}</p>
+        <p>Evidence handling requirements:</p>
+        <ul>
+            <li>Document how all evidence is preserved</li>
+            <li>Collect evidence according to procedures meeting applicable laws</li>
+            <li>Maintain chain of custody documentation</li>
+            <li>Keep detailed evidence logs including:
+                <ul>
+                    <li>Identifying information (serial numbers, IP addresses, hostnames)</li>
+                    <li>Name and contact of each individual handling evidence</li>
+                    <li>Time and date of each evidence handling occurrence</li>
+                    <li>Storage locations</li>
+                </ul>
+            </li>
+        </ul>
+        {% else %}
+        <p>
+            Evidence handling procedures should be established based on organizational requirements and applicable 
+            legal/regulatory requirements.
+        </p>
+        {% endif %}
+
+        <h4>3.3.3 Identifying the Attacking Hosts</h4>
+        <p>Activities for attacking host identification:</p>
+        <ul>
+            <li>Validating the attacking host's IP address</li>
+            <li>Researching the attacking host through search engines</li>
+            <li>Using incident databases and threat intelligence</li>
+            <li>Monitoring possible attacker communication channels</li>
+        </ul>
+
+        <h4>3.3.4 Eradication and Recovery</h4>
+        <p><strong>Eradication</strong> involves eliminating incident components:</p>
+        <ul>
+            <li>Deleting malware</li>
+            <li>Disabling breached user accounts</li>
+            <li>Identifying and mitigating exploited vulnerabilities</li>
+            <li>Identifying all affected hosts for remediation</li>
+        </ul>
+
+        <p><strong>Recovery</strong> involves restoring systems to normal operation:</p>
+        <ul>
+            <li>Restoring systems from clean backups</li>
+            <li>Rebuilding systems from scratch if necessary</li>
+            <li>Replacing compromised files with clean versions</li>
+            <li>Installing patches</li>
+            <li>Changing passwords</li>
+            <li>Tightening network perimeter security</li>
+            <li>Implementing enhanced monitoring</li>
+        </ul>
+
+        <h3>3.4 Post-Incident Activity</h3>
+
+        <h4>3.4.1 Lessons Learned</h4>
+        {% if conductPostIncidentReviews %}
+        <p>{{ organizationName }} conducts post-incident reviews after security incidents.</p>
+        <p>A lessons learned meeting should be held within several days of incident closure to address:</p>
+        <ul>
+            <li>What exactly happened and at what times?</li>
+            <li>How well did staff and management perform?</li>
+            <li>Were documented procedures followed?</li>
+            <li>Were the procedures adequate?</li>
+            <li>What information was needed sooner?</li>
+            <li>Were any steps or actions taken that might have inhibited recovery?</li>
+            <li>What would staff and management do differently next time?</li>
+            <li>How could information sharing with other organizations be improved?</li>
+            <li>What corrective actions can prevent similar incidents?</li>
+            <li>What precursors or indicators should be watched for in the future?</li>
+            <li>What additional tools or resources are needed?</li>
+        </ul>
+        {% else %}
+        <p>
+            Post-incident review procedures should be established to enable continuous improvement of incident response 
+            capabilities.
+        </p>
+        {% endif %}
+
+        <h4>3.4.2 Using Collected Incident Data</h4>
+        <p>Metrics for incident-related data:</p>
+        <ul>
+            <li>Number of incidents handled</li>
+            <li>Time per incident (detection, containment, recovery)</li>
+            <li>Objective analysis of incident handling effectiveness</li>
+            <li>Subjective assessment by team members</li>
+        </ul>
+
+        <h4>3.4.3 Evidence Retention</h4>
+        <p>Factors for evidence retention policy:</p>
+        <ul>
+            <li>Potential for prosecution</li>
+            <li>Data retention requirements</li>
+            <li>Storage costs</li>
+            <li>Regulatory requirements</li>
+        </ul>
+
+        <h4>3.4.4 Incident Handling Checklist</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 80pt;">Phase</th>
+                    <th>Action</th>
+                    <th style="width: 80pt;">Completed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="3" style="background-color: #f0f0f0; font-weight: bold;">Detection and Analysis</td>
+                </tr>
+                <tr>
+                    <td>1.</td>
+                    <td>Determine whether an incident has occurred</td>
+                    <td>☐</td>
+                </tr>
+                <tr>
+                    <td>1.1</td>
+                    <td>Analyze precursors and indicators</td>
+                    <td>☐</td>
+                </tr>
+                <tr>
+                    <td>1.2</td>
+                    <td>Look for correlating information</td>
+                    <td>☐</td>
+                </tr>
+                <tr>
+                    <td>1.3</td>
+                    <td>Perform research</td>
+                    <td>☐</td>
+                </tr>
+                <tr>
+                    <td>1.4</td>
+                    <td>Begin documenting investigation and gathering evidence</td>
+                    <td>☐</td>
+                </tr>
+                <tr>
+                    <td>2.</td>
+                    <td>Prioritize handling based on relevant factors</td>
+                    <td>☐</td>
+                </tr>
+                <tr>
+                    <td>3.</td>
+                    <td>Report to appropriate personnel and organizations</td>
+                    <td>☐</td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="background-color: #f0f0f0; font-weight: bold;">Containment, Eradication, and Recovery</td>
+                </tr>
+                <tr>
+                    <td>4.</td>
+                    <td>Acquire, preserve, secure, and document evidence</td>
+                    <td>☐</td>
+                </tr>
+                <tr>
+                    <td>5.</td>
+                    <td>Contain the incident</td>
+                    <td>☐</td>
+                </tr>
+                <tr>
+                    <td>6.</td>
+                    <td>Eradicate the incident</td>
+                    <td>☐</td>
+                </tr>
+                <tr>
+                    <td>6.1</td>
+                    <td>Identify and mitigate exploited vulnerabilities</td>
+                    <td>☐</td>
+                </tr>
+                <tr>
+                    <td>6.2</td>
+                    <td>Remove malware and inappropriate materials</td>
+                    <td>☐</td>
+                </tr>
+                <tr>
+                    <td>6.3</td>
+                    <td>Repeat detection steps if additional affected hosts discovered</td>
+                    <td>☐</td>
+                </tr>
+                <tr>
+                    <td>7.</td>
+                    <td>Recover from the incident</td>
+                    <td>☐</td>
+                </tr>
+                <tr>
+                    <td>7.1</td>
+                    <td>Return systems to operationally ready state</td>
+                    <td>☐</td>
+                </tr>
+                <tr>
+                    <td>7.2</td>
+                    <td>Confirm systems are functioning normally</td>
+                    <td>☐</td>
+                </tr>
+                <tr>
+                    <td>7.3</td>
+                    <td>Implement additional monitoring if necessary</td>
+                    <td>☐</td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="background-color: #f0f0f0; font-weight: bold;">Post-Incident Activity</td>
+                </tr>
+                <tr>
+                    <td>8.</td>
+                    <td>Create a follow-up report</td>
+                    <td>☐</td>
+                </tr>
+                <tr>
+                    <td>9.</td>
+                    <td>Hold a lessons learned meeting</td>
+                    <td>☐</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Section 4: Coordination -->
+        <h2 id="coordination" class="page-break">4. Coordination and Information Sharing</h2>
+
+        <h3>4.1 Coordination</h3>
+        <p>The incident response team may need to interact with:</p>
+        <ul>
+            <li>Other incident response teams within the organization</li>
+            <li>Law enforcement agencies</li>
+            <li>Internet service providers</li>
+            <li>External vendors and partners</li>
+            <li>Industry-specific ISACs (Information Sharing and Analysis Centers)</li>
+        </ul>
+
+        <h3>4.2 Information Sharing Techniques</h3>
+
+        <h4>4.2.1 Ad Hoc</h4>
+        <p>
+            Traditional information sharing through email, instant messaging, and phone calls using established 
+            relationships with peers.
+        </p>
+
+        <h4>4.2.2 Partially Automated</h4>
+        <p>Where possible, automate information sharing while maintaining human oversight for sensitive decisions.</p>
+
+        <h4>4.2.3 Security Considerations</h4>
+        <ul>
+            <li>Designate who can see which pieces of incident information</li>
+            <li>Perform data sanitization to remove sensitive information</li>
+            <li>Protect information shared by other organizations</li>
+        </ul>
+
+        <h3>4.3 Granular Information Sharing</h3>
+
+        <h4>4.3.1 Business Impact Information</h4>
+        <p>
+            Share business impact information only with parties that have interest in the organization's mission 
+            (typically coordinating teams).
+        </p>
+
+        <h4>4.3.2 Technical Information</h4>
+        <p>Technical indicators include:</p>
+        <ul>
+            <li>Hostnames and IP addresses of attacking hosts</li>
+            <li>Malware samples</li>
+            <li>Indicators of compromise (IOCs)</li>
+            <li>Vulnerability information</li>
+        </ul>
+
+        <!-- Appendices -->
+        <div class="appendix">
+            <h2 id="appendix-a">A: Situation Update Template</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Date of Entry</strong></td><td></td></tr>
+                    <tr><td><strong>Time of Entry</strong></td><td></td></tr>
+                    <tr><td><strong>Author</strong></td><td></td></tr>
+                    <tr><td><strong>Date/Time Incident Detected</strong></td><td></td></tr>
+                    <tr><td><strong>Current Status</strong></td><td>New / In Progress / Resolved</td></tr>
+                    <tr><td><strong>Incident Type</strong></td><td></td></tr>
+                    <tr><td><strong>Incident Classification</strong></td><td>Incident / Significant Incident / Emergency</td></tr>
+                    <tr><td><strong>Scope</strong></td><td>(affected networks, systems, applications)</td></tr>
+                    <tr><td><strong>Impact</strong></td><td>(affected stakeholders)</td></tr>
+                    <tr><td><strong>Severity</strong></td><td></td></tr>
+                    <tr><td><strong>Notifications Actioned/Pending</strong></td><td></td></tr>
+                    <tr><td><strong>Additional Notes</strong></td><td></td></tr>
+                    <tr><td><strong>Incident Manager Contact</strong></td><td></td></tr>
+                    <tr><td><strong>Next Update</strong></td><td></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="appendix">
+            <h2 id="appendix-b">B: Resolution Action Plan Template</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date/Time</th>
+                        <th>Category</th>
+                        <th>Action</th>
+                        <th>Owner</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td>Contain / Eradicate / Recover / Communications</td>
+                        <td></td>
+                        <td></td>
+                        <td>Unallocated / In Progress / Closed</td>
+                    </tr>
+                    <tr><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="appendix">
+            <h2 id="appendix-c">C: Evidence Register Template</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date, Time, Location of Collection</th>
+                        <th>Collected By</th>
+                        <th>Item Details</th>
+                        <th>Storage Location</th>
+                        <th>Access Log</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td>(name, title, contact, phone)</td>
+                        <td>(quantity, serial number, model, hostname, MAC, IP)</td>
+                        <td>(location, label number)</td>
+                        <td>(date, time, person, rationale)</td>
+                    </tr>
+                    <tr><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="appendix">
+            <h2 id="appendix-d">D: Assets and Key Contacts</h2>
+            
+            <h3>Site Information</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>IP Subnet</td><td></td></tr>
+                    <tr><td>DHCP Scope</td><td></td></tr>
+                    <tr><td>Core Router IP</td><td></td></tr>
+                    <tr><td>DNS Servers (Internal)</td><td></td></tr>
+                    <tr><td>DNS Name / Logs &amp; Location</td><td></td></tr>
+                </tbody>
+            </table>
+
+            <h3>Internet Connection / Communications</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Internet Service Provider</td><td></td></tr>
+                    <tr><td>Network Provider</td><td></td></tr>
+                    <tr><td>VoIP/PABX Phone System</td><td></td></tr>
+                    <tr><td>Fixed Line Services</td><td></td></tr>
+                    <tr><td>Mobile Data Services</td><td></td></tr>
+                </tbody>
+            </table>
+
+            <h3>Firewall &amp; Security</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Firewall Software/Hardware</td><td></td></tr>
+                    <tr><td>Wired Network</td><td></td></tr>
+                    <tr><td>Wireless Network</td><td></td></tr>
+                </tbody>
+            </table>
+
+            <h3>Key Contacts</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th>Name</th>
+                        <th>Contact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Incident Commander</td><td>{{ incidentCommander }}</td><td></td></tr>
+                    <tr><td>Cloud/Infrastructure Remediation</td><td>{{ cloudRemediationOwner }}</td><td></td></tr>
+                    <tr><td>Legal/Compliance</td><td>{{ legalComplianceOwner }}</td><td></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="appendix">
+            <h2 id="appendix-e">E: Glossary</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 150pt;">Term</th>
+                        <th>Definition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Baselining</strong></td><td>Monitoring resources to determine typical utilization patterns so that significant deviations can be detected</td></tr>
+                    <tr><td><strong>CSIRT</strong></td><td>Computer Security Incident Response Team - a capability set up for assisting in responding to computer security-related incidents</td></tr>
+                    <tr><td><strong>Event</strong></td><td>Any observable occurrence in a network or system</td></tr>
+                    <tr><td><strong>False Positive</strong></td><td>An alert that incorrectly indicates that malicious activity is occurring</td></tr>
+                    <tr><td><strong>Incident</strong></td><td>A violation or imminent threat of violation of computer security policies, acceptable use policies, or standard security practices</td></tr>
+                    <tr><td><strong>Incident Handling</strong></td><td>The mitigation of violations of security policies and recommended practices</td></tr>
+                    <tr><td><strong>Indicator</strong></td><td>A sign that an incident may have occurred or may be currently occurring</td></tr>
+                    <tr><td><strong>IDPS</strong></td><td>Intrusion Detection and Prevention System - software that monitors events for signs of possible incidents</td></tr>
+                    <tr><td><strong>Malware</strong></td><td>A virus, worm, Trojan horse, or other code-based malicious entity</td></tr>
+                    <tr><td><strong>Precursor</strong></td><td>A sign that an attacker may be preparing to cause an incident</td></tr>
+                    <tr><td><strong>Profiling</strong></td><td>Measuring the characteristics of expected activity so that changes can be more easily identified</td></tr>
+                    <tr><td><strong>Signature</strong></td><td>A recognizable, distinguishing pattern associated with an attack</td></tr>
+                    <tr><td><strong>Social Engineering</strong></td><td>An attempt to trick someone into revealing information</td></tr>
+                    <tr><td><strong>Threat</strong></td><td>The potential source of an adverse event</td></tr>
+                    <tr><td><strong>Vulnerability</strong></td><td>A weakness in a system, application, or network that is subject to exploitation or misuse</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Document Footer -->
+        <div class="document-footer">
+            <p>This document was generated by ResponseForge on {{ generated_date }} at {{ generated_time }}.</p>
+            <p>Based on NIST SP 800-61 Rev. 2: Computer Security Incident Handling Guide</p>
+        </div>
+    </div>
+</body>
+</html>
