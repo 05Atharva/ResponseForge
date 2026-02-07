@@ -9,6 +9,11 @@
 <body>
     <!-- Title Page -->
     <div class="title-page org-name" data-org="{{ organizationName }}">
+        {% if organizationLogo %}
+        <div class="org-logo-container">
+            <img src="{{ organizationLogo }}" alt="Organization Logo" class="org-logo">
+        </div>
+        {% endif %}
         <h1 class="title-page">{{ organizationName }}<br>Incident Response Plan</h1>
         <p class="subtitle">Computer Security Incident Handling Guide</p>
         <p class="subtitle" style="font-size: 12pt; margin-top: 20pt;">

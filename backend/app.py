@@ -33,8 +33,8 @@ def create_app():
     # Configuration
     # ---------------------------------------------------------------------------
     
-    # Maximum content length: 16KB to prevent large payload attacks
-    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024
+    # Maximum content length: 5MB to allow for image uploads
+    app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
     
     # Secret key for sessions (not used in this API, but good practice)
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')

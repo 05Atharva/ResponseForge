@@ -25,6 +25,7 @@ import FormNavigation from './components/FormNavigation';
 const initialFormState = {
   // Section 4.1: Organization Information
   organizationName: '',
+  organizationLogo: null,
   industry: '',
   infrastructureEnvironment: '',
 
@@ -466,6 +467,7 @@ function App() {
       {/* Footer */}
       <footer className="app-footer">
         <p>ResponseForge • Based on NIST SP 800-61 Rev. 2</p>
+        <p className="privacy-notice">🔒 Data processed locally & securely. No information is stored on our servers.</p>
       </footer>
     </div>
   );

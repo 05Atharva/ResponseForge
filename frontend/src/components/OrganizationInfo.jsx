@@ -61,6 +61,49 @@ function OrganizationInfo({ formData, onChange, infrastructureOptions }) {
                     ))}
                 </select>
             </div>
+
+            {/* Q1b: Organization Logo (Optional) */}
+            <div className="form-group">
+                <label htmlFor="organizationLogo">
+                    Organization Logo (Optional)
+                    <span className="help-text">Upload a PNG or JPG (max 500KB). It will appear on the title page.</span>
+                </label>
+                <input
+                    type="file"
+                    id="organizationLogo"
+                    accept="image/png, image/jpeg, image/jpg"
+                    onChange={(e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                            if (file.size > 500 * 1024) {
+                                alert("File is too large. Please select an image under 500KB.");
+                                e.target.value = null;
+                                return;
+                            }
+                            const reader = new FileReader();
+                            reader.onloadend = () => {
+                                onChange('organizationLogo', reader.result);
+                            };
+                            reader.readAsDataURL(file);
+                        } else {
+                            onChange('organizationLogo', null);
+                        }
+                    }}
+                />
+                {formData.organizationLogo && (
+                    <div className="logo-preview">
+                        <img src={formData.organizationLogo} alt="Logo Preview" style={{ maxHeight: '50px', marginTop: '10px' }} />
+                        <button
+                            type="button"
+                            className="btn-text"
+                            onClick={() => onChange('organizationLogo', null)}
+                            style={{ marginLeft: '10px', color: '#dc3545', cursor: 'pointer', background: 'none', border: 'none' }}
+                        >
+                            Remove
+                        </button>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

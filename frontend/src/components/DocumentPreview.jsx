@@ -4,9 +4,12 @@
  * Preview and download the generated IR document
  */
 
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 function DocumentPreview({ document, filename, onDownload, onReset }) {
+    const [showConfirmation, setShowConfirmation] = useState(false);
+
     if (!document) {
         return (
             <div className="preview-empty">
@@ -15,8 +18,31 @@ function DocumentPreview({ document, filename, onDownload, onReset }) {
         );
     }
 
+    const handleDownloadClick = () => {
+        setShowConfirmation(true);
+    };
+
+    const confirmDownload = () => {
+        setShowConfirmation(false);
+        onDownload();
+    };
+
     return (
         <div className="document-preview">
+            {/* Confirmation Modal */}
+            {showConfirmation && (
+                <div className="modal-backdrop">
+                    <div className="modal-content">
+                        <h3>Confirm Information</h3>
+                        <p>Please confirm that the information provided is correct and that you will use this document for legal purposes only.</p>
+                        <div className="modal-actions">
+                            <button className="btn btn-secondary" onClick={() => setShowConfirmation(false)}>Cancel</button>
+                            <button className="btn btn-primary" onClick={confirmDownload}>I Confirm & Download</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Success Message */}
             <div className="success-message">
                 <span className="success-icon">✅</span>
@@ -32,7 +58,7 @@ function DocumentPreview({ document, filename, onDownload, onReset }) {
 
             {/* Action Buttons */}
             <div className="preview-actions">
-                <button className="btn btn-primary btn-large" onClick={onDownload}>
+                <button className="btn btn-primary btn-large" onClick={handleDownloadClick}>
                     ⬇️ Download Document
                 </button>
                 <button className="btn btn-secondary" onClick={onReset}>

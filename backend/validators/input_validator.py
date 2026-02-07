@@ -292,6 +292,18 @@ def validate_questionnaire(data: Dict) -> Tuple[bool, Dict[str, Any], List[str]]
         data, 'organizationName', errors
     )
     
+    # Q1b: Organization Logo (Optional)
+    # Basic validation to ensure it's a string if present
+    logo = data.get('organizationLogo')
+    if logo:
+        if isinstance(logo, str) and (logo.startswith('data:image/') or len(logo) < 1000000): # Basic sanity check
+             validated['organizationLogo'] = logo
+        else:
+             # If invalid, just ignore it rather than erroring out the whole form
+             validated['organizationLogo'] = None
+    else:
+        validated['organizationLogo'] = None
+    
     # Q2: Industry
     validated['industry'] = validate_required_text(
         data, 'industry', errors

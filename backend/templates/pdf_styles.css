@@ -134,6 +134,18 @@ p {
     margin-bottom: 0;
 }
 
+.org-logo-container {
+    margin-top: 50pt;
+    margin-bottom: 30pt;
+    text-align: center;
+}
+
+.org-logo {
+    max-width: 200pt;
+    max-height: 100pt;
+    object-fit: contain;
+}
+
 .subtitle {
     font-size: 16pt;
     font-style: italic;
