@@ -7,7 +7,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function DocumentPreview({ document, filename, onDownload, onReset }) {
+function DocumentPreview({ document, filename, onDownload, onReset, isPdf = false }) {
     const [showConfirmation, setShowConfirmation] = useState(false);
 
     if (!document) {
@@ -26,6 +26,9 @@ function DocumentPreview({ document, filename, onDownload, onReset }) {
         setShowConfirmation(false);
         onDownload();
     };
+
+    // Generate PDF preview URL if it's a PDF
+    const pdfPreviewUrl = isPdf ? `data:application/pdf;base64,${document}` : null;
 
     return (
         <div className="document-preview">
@@ -70,7 +73,17 @@ function DocumentPreview({ document, filename, onDownload, onReset }) {
             <div className="preview-container">
                 <h4>Document Preview</h4>
                 <div className="preview-content">
-                    <pre>{document}</pre>
+                    {isPdf ? (
+                        <div className="pdf-preview">
+                            <iframe
+                                src={pdfPreviewUrl}
+                                title="PDF Preview"
+                                className="pdf-iframe"
+                            />
+                        </div>
+                    ) : (
+                        <pre>{document}</pre>
+                    )}
                 </div>
             </div>
 
@@ -94,6 +107,7 @@ DocumentPreview.propTypes = {
     filename: PropTypes.string,
     onDownload: PropTypes.func.isRequired,
     onReset: PropTypes.func.isRequired,
+    isPdf: PropTypes.bool,
 };
 
 export default DocumentPreview;
