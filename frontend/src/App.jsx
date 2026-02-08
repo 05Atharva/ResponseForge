@@ -309,6 +309,7 @@ function App() {
             filename={generatedFilename}
             onDownload={handleDownload}
             onReset={handleReset}
+            isPdf={isPdfDocument}
           />
         );
       default:
